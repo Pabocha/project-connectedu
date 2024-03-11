@@ -1,0 +1,12 @@
+{
+  "default": {
+    "ENGINE": "django.db.backends.postgresql_psycopg2",
+    "NAME": "ConnectEdu",
+    "USER": "postgres",
+    "PASSWORD": "P@blo 2003",
+    "HOST": "127.0.0.1",
+    "PORT": "5432",
+    "PASSWORDs": "rXQGBMw3Eu"
+  }
+
+}
