@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ConnectEdu
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@blo 2003
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+
+    # command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+      - .:/app
+
+    ports:
+      - "8000:8000"
+
+    entrypoint: /app/entrypoint.sh
+
+    depends_on:
+      - db
+volumes:
+  db_data:

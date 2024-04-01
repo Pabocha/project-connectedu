@@ -1,40 +1,30 @@
-# FROM python:3
+# Utilisez l'image Python 3 officielle comme image de base
+FROM python:3
 
-# ENV PYTHONBUFFERD 1
+# Définit les variables d'environnement pour éviter la mise en cache de Python bytecode
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-# ENV PYTHONDONTWRTEBYTECODE 1
+# Créez le répertoire /app dans le conteneur
+RUN mkdir /app
 
-# RUN mkdir /app 
-
-# WORKDIR /app
-
-# COPY . /app/
-
-# RUN python -m venv /env
-
-# ENV PATH = "/env/bin/:$PATH"
-
-# RUN python -m pip install --upgrade pip
-
-# COPY requirements.txt /app/
-
-# RUN pip install -r requirements.txt
-
-# Utilisez une image de base avec Python
-FROM python:3.
-
-# Définissez le répertoire de travail dans le conteneur
+# Définit le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copiez le fichier requirements.txt et installez les dépendances
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copiez le contenu du répertoire actuel dans /app dans le conteneur
+COPY . /app/
 
-# Copiez le reste de l'application dans le conteneur
-COPY . .
+# Installez les dépendances du système et créez un environnement virtuel
+RUN python -m venv /env
 
-# Exposez le port sur lequel Django s'exécutera
-EXPOSE 8000
+# Définissez le chemin d'accès de l'environnement virtuel
+ENV PATH="/env/bin:$PATH"
 
-# Commande pour exécuter l'application Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Mettez à jour pip et installez les dépendances Python à partir du fichier requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copiez le script d'entrée dans le conteneur
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Définissez les permissions d'exécution pour le script d'entrée
+RUN chmod +x /app/entrypoint.sh
