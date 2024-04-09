@@ -15,7 +15,7 @@ services:
   web:
     build: .
 
-    # command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
 
     volumes:
       - .:/app
@@ -23,9 +23,25 @@ services:
     ports:
       - "8000:8000"
 
-    entrypoint: /app/entrypoint.sh
+  redis:
+    image: redis:latest
+
+  celery:
+    restart: always
+    build: .
+    command: celery -A connectedu worker -l info
+    volumes:
+      - .:/app
+    environment:
+      DB_HOST: db
+      DB_NAME: ConnectEdu
+      DB_USER: postgres
+      DB_PASSWORD: P@blo 2003
+    # entrypoint: /app/entrypoint.sh
 
     depends_on:
       - db
+      - redis
+      - web
 volumes:
   db_data:

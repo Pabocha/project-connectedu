@@ -3,7 +3,6 @@ from .models import Ecoles
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-# Dm7ZUpeDme
 
 
 class EcoleSerializer(serializers.ModelSerializer):
@@ -15,7 +14,7 @@ class EcoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ecoles
-        fields = ('nom', 'email', 'telephone_1', 'telephone_2', 'adresse', 'ville_residence', 'logo', 'date_creation', 'document', 
+        fields = ('nom', 'email_ecole', 'telephone_1', 'telephone_2', 'adresse', 'ville_residence', 'logo', 'date_creation', 'document', 
                   'nom_responsable', 'prenom_responsable', 'email_responsable')
         
    

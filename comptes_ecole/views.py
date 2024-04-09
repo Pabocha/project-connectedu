@@ -19,15 +19,18 @@ class InscriptionEcole(generics.ListCreateAPIView):
         crée avet le set_passord
         """
         password = User.objects.make_random_password()
+        print(".....voilà un peu")
         print(password)
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
+        print(request.data)
         # extratction des données du responsable 
         nom = serializer.validated_data.pop('nom_responsable')
         prenom = serializer.validated_data.pop('prenom_responsable')
         email = serializer.validated_data.pop('email_responsable')
         instance_ecole = serializer.save()
+    
         responsable = User(username=f"{nom}-OG", first_name=nom, last_name=prenom, email=email, 
                                         ecoles=instance_ecole)
         responsable.set_password(password)

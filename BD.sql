@@ -38,6 +38,7 @@ CREATE TABLE ResponsableEcole(
     id_responsable INTEGER PRIMARY KEY AUTOINCREMENT,
     username VARCHAR(255) NOT NULL,
     nom_responsable VARCHAR(255) NOT NULL,
+    prenom_responsable VARCHAR(255) NOT NULL,
     email_responsable VARCHAR(255) NOT NULL,
     telephone_responsable NUMBER(30) NOT NULL,
     ville_residence VARCHAR(255) NOT NULL,

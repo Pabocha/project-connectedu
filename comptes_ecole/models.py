@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Ecoles(TenantMixin):
 
     nom = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    email_ecole = models.EmailField(unique=True)
     telephone_1 = models.CharField(max_length=30)
     telephone_2 = models.CharField(max_length=30, blank=True)
     logo = models.ImageField(upload_to="", blank=True)

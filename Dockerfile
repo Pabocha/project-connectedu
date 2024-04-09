@@ -24,7 +24,7 @@ ENV PATH="/env/bin:$PATH"
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copiez le script d'entrée dans le conteneur
-COPY entrypoint.sh /app/entrypoint.sh
+# COPY entrypoint.sh /app/entrypoint.sh
 
 # Définissez les permissions d'exécution pour le script d'entrée
-RUN chmod +x /app/entrypoint.sh
+# RUN chmod +x /app/entrypoint.sh
