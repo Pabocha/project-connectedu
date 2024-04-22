@@ -1,5 +1,8 @@
+import uuid
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import EcoleSerializer
 from .models import Ecoles
 from django.contrib.auth import get_user_model
@@ -8,36 +11,33 @@ from .tasks import execute_migrations
 User = get_user_model()
 
 
-class InscriptionEcole(generics.ListCreateAPIView):
+class InscriptionEcole(APIView):
 
-    queryset = Ecoles.objects.all()
-    serializer_class = EcoleSerializer
+    parser_classes = [MultiPartParser, FormParser]
 
-    def create(self, request, *args, **kwargs):
-        """
-        Je crée un mot de passe avec make_random_password puis ce mot de passe est assigné à l'utilisateur 
-        crée avet le set_passord
-        """
+    def post(self, request, format=None):
+        # queryset = Ecoles.objects.all()
+
         password = User.objects.make_random_password()
-        print(".....voilà un peu")
         print(password)
-        print(request.data)
-        serializer = self.get_serializer(data=request.data)
+        # serializer = self.get_serializer(data=request.data)
+        serializer = EcoleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print(request.data)
         # extratction des données du responsable 
         nom = serializer.validated_data.pop('nom_responsable')
         prenom = serializer.validated_data.pop('prenom_responsable')
         email = serializer.validated_data.pop('email_responsable')
         instance_ecole = serializer.save()
-    
-        responsable = User(username=f"{nom}-OG", first_name=nom, last_name=prenom, email=email, 
+        
+        uuid_responsable = uuid.uuid4()
+        uuid_str = str(uuid_responsable)[:5]
+        username_responsable = (f"{nom[:3]}-{uuid_str}")
+        responsable = User(username=username_responsable, first_name=nom, last_name=prenom, email=email, 
                                         ecoles=instance_ecole)
         responsable.set_password(password)
         responsable.save()
 
         send_mail_welcome.delay(email, responsable.username, password)
 
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     

@@ -10,7 +10,7 @@ from unidecode import unidecode
 
 # Creation automatique du schema de l'école et de son domain 
 def create_schema_and_domain_school(instance, created):
-    if instance.schema_name != "public":
+    if instance.schema_name != 'public':
         instance.schema_name = f"{unidecode(instance.nom.lower().replace(' ', '_'))}"
         if created:
             domain = unidecode(instance.nom.lower().replace(' ', '-'))

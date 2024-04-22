@@ -36,7 +36,7 @@ class MultipleEmailView(generics.CreateAPIView):
 
         subject = serializer.validated_data['subject']
         message = serializer.validated_data['message']
-        recepteur = serializer.validated_data['recepteur'][0]
+        recepteur = serializer.validated_data['recepteur']
 
         send_mail(subject, message, settings.EMAIL_HOST_USER, recepteur)
 

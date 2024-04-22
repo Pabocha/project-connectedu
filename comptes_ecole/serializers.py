@@ -10,6 +10,8 @@ class EcoleSerializer(serializers.ModelSerializer):
     nom_responsable = serializers.CharField(write_only=True)
     prenom_responsable = serializers.CharField(write_only=True)
     email_responsable = serializers.EmailField(write_only=True)
+    logo = serializers.ImageField(required=False)
+
 
 
     class Meta:
