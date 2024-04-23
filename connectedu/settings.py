@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-BASE_DOMAIN = 'localhost'
+BASE_DOMAIN = '192.168.1.3'
 
 AUTH_USER_MODEL = 'utilisateurs.Utilisateurs'
 
@@ -44,9 +44,8 @@ SHARED_APPS = (
     'utilisateurs',
     'contacts',
 
-    'django.contrib.contenttypes',
-
     # everything below here is optional
+    'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -88,9 +87,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://*",
+#     "https://*",
+# ]
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8111",
     "http://localhost:8080",
+    "http://localhost:3000"
 ]
 
 
@@ -155,6 +159,19 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     },
 }
+
+# BD TESTING
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME' : 'ConnectEdu',
+#         'USER' : 'postgres',
+#         'PASSWORD' : 'postgres',
+#         'HOST' : '127.0.0.1',
+#         'PORT' : '5432'
+#     },
+# }
+
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
@@ -216,5 +233,7 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
 # configuration redis 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

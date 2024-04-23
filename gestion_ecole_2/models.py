@@ -71,7 +71,6 @@ class EmploiDuTemps(models.Model):
     heure_fin = models.TimeField()
     classe = models.ForeignKey(Niveaux, on_delete=models.CASCADE)
     matiere = models.ForeignKey(Matieres, on_delete=models.CASCADE)
-    professeur = models.ForeignKey(Professeurs, on_delete=models.SET_NULL, null=True)
     salle = models.ForeignKey(Salles, on_delete=models.SET_NULL, null=True)
 
     class Meta:

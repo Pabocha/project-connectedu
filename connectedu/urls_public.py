@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
-# from utilisateurs.views import CustomTokenObtain
 
-# from utilisateurs.views import CustomTokenObtainPairView
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -17,4 +17,4 @@ urlpatterns = [
     path('admin-tenant/', admin.site.urls),
     path('inscription/', include('comptes_ecole.urls')),
     path('contact/', include('contacts.urls')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

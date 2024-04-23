@@ -12,10 +12,12 @@ from django.db import transaction
 
 
 class ProfesseursView(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Professeurs.objects.all()
     serializer_class = ProfesseurSerializer
         
 class MatiereView(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Matieres.objects.all()
     serializer_class = MatiereSerializer
 
@@ -25,6 +27,7 @@ class SalleView(viewsets.ModelViewSet):
     serializer_class = SalleSerializer
 
 class NiveauView(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Niveaux.objects.all()
     serializer_class = NiveauSerializer
 
@@ -43,12 +46,12 @@ class EleveUploadExcelView(APIView):
 
     def post(self, request, format=None):
         try:
-            file_obj = request.data.get("excel")
-            classe = request.data.get("classe")
+            file_obj = request.data.get("file")
+            classe = request.headers.get('niveau', None)
             print(f"voici {classe}")
 
-            if not file_obj:
-                return Response({'message': 'Vous navez pas chargé de fichier.'}, status=status.HTTP_400_BAD_REQUEST)
+            if not file_obj or classe == None:
+                return Response({'message': 'Vous navez pas chargé de fichier. ou une erreur est survenu'}, status=status.HTTP_400_BAD_REQUEST)
 
             df = pd.read_excel(file_obj)
             if not df.isna().any().any():
@@ -90,7 +93,7 @@ class EleveUploadExcelView(APIView):
                         serializer.is_valid(raise_exception=True)
                         serializer.save()
 
-                return Response({'message': 'Téléchargement réussi'})
+                return Response({'message': 'Téléchargement réussi'}, status=status.HTTP_200_OK)
             else:
                 colonnes_avec_vide = df.columns[df.isnull().any()].tolist()
                 return Response({'message': f'Les colonnes {colonnes_avec_vide} sont manquantes dans le fichier Excel.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -115,10 +118,14 @@ class ElevesView(viewsets.ModelViewSet):
             niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
             eleves_queryset = Eleves.objects.filter(niveau=niveau_classe)
         else:
-            eleves_queryset = Eleves.objects.all()
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.get_serializer(eleves_queryset, many=True)
         return Response(serializer.data)
+    
+    def create(self, request, *args, **kwargs):
+        niveau = request.headers.get('niveau', None)
+        return Response()
 
      
 
