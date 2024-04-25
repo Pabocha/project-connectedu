@@ -12,15 +12,3 @@ class UpdateUserView(generics.RetrieveUpdateAPIView):
     serializer_class = UpdateUserSerializer
 
 
-
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-def user_info(request):
-    user = request.user
-    user_data = {
-        'id': user.id,
-        'username': user.username,
-        'email': user.email,
-        'ecole': user.ecoles.schema_name if user.ecoles else None,
-    }
-    return Response(user_data)

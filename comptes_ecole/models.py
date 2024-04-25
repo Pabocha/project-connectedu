@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 def upload_to(instance, filename):
-    return 'images/{filename}'.format(filename=filename)
+    return 'media/{filename}'.format(filename=filename)
 
 class Ecoles(TenantMixin):
 

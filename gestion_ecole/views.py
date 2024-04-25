@@ -51,7 +51,7 @@ class EleveUploadExcelView(APIView):
             print(f"voici {classe}")
 
             if not file_obj or classe == None:
-                return Response({'message': 'Vous navez pas chargé de fichier. ou une erreur est survenu'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message': 'Vous navez pas chargé de fichier. ou indiqué la classe'}, status=status.HTTP_400_BAD_REQUEST)
 
             df = pd.read_excel(file_obj)
             if not df.isna().any().any():
@@ -109,7 +109,7 @@ class ElevesView(viewsets.ModelViewSet):
     
     queryset = Eleves.objects.all()
     serializer_class = EleveSerializer
-    permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
 
     def list(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)

@@ -42,6 +42,5 @@ services:
     depends_on:
       - db
       - redis
-      - web
 volumes:
   db_data:
