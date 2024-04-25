@@ -11,13 +11,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['name'] = user.username
-        if user.ecoles.schema_name != None:
+        if user.ecoles and user.ecoles.schema_name:
             token['schema_name'] = user.ecoles.schema_name
         else:
-            token['schema_name'] = ""
+            token['schema_name'] = None
+
 
         return token
-
 
 class UpdateUserSerializer(serializers.ModelSerializer):
 

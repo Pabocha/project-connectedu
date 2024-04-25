@@ -1,10 +1,31 @@
 # from celery import shared_task
 from connectedu.celery import app
 from django.core.management import call_command
+from django_tenants.utils import schema_context
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Ecoles
 from django_tenants.utils import schema_context
+
+
+@app.task
+def create_schema_and_run_migrations(schema_name):
+    # Crée le schéma pour l'école
+    from django.db import connection
+    from django.db.utils import ProgrammingError
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"CREATE SCHEMA {schema_name}")
+    except ProgrammingError:
+        # Le schéma existe déjà
+        pass
+    
+    # Exécute les migrations dans le contexte du nouveau schéma
+    with schema_context(schema_name):
+        call_command('migrate', interactive=False, database='default')
+
+    return f"Schéma {schema_name} créé et migrations exécutées"
 
 
 @app.task
@@ -28,9 +49,9 @@ def send_mail_welcome(email, responsable, password):
         fail_silently=False
     )
 
-@app.task
-def execute_migrations(schema_name):
-    # Exécuter les migrations sur le schéma spécifié
-    with schema_context(schema_name):
-        # Exécuter les migrations
-        call_command('migrate', verbosity=0)
+# @app.task
+# def execute_migrations(schema_name):
+#     # Exécuter les migrations sur le schéma spécifié
+#     with schema_context(schema_name):
+#         # Exécuter les migrations
+#         call_command('migrate', verbosity=0)

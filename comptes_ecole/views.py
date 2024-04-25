@@ -6,8 +6,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import EcoleSerializer
 from .models import Ecoles
 from django.contrib.auth import get_user_model
-from .tasks import send_mail_welcome
-from .tasks import execute_migrations
+from .tasks import send_mail_welcome, create_schema_and_run_migrations
 User = get_user_model()
 
 
@@ -37,6 +36,7 @@ class InscriptionEcole(APIView):
         responsable.set_password(password)
         responsable.save()
 
+        create_schema_and_run_migrations.delay(instance_ecole.schema_name)
         send_mail_welcome.delay(email, responsable.username, password)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -20,7 +20,7 @@ class Ecoles(TenantMixin):
     date_creation = models.DateField()
     date_inscription = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
-    auto_create_schema = True
+    auto_create_schema = False
 
     class Meta:
         verbose_name = ('Ecole')
