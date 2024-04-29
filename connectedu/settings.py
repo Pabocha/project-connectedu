@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from decouple import config
 from .info import *
+import django_heroku
+import dj_database_url
 import os
 from datetime import timedelta
 
@@ -122,8 +124,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
   # It will work instead of the default serializer(TokenObtainPairSerializer).
   "TOKEN_OBTAIN_SERIALIZER": "utilisateurs.serializers.MyTokenObtainPairSerializer",
-  "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
-  "REFRESH_TOKEN_LIFETIME": timedelta(hours=2)
+  "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+  "REFRESH_TOKEN_LIFETIME": timedelta(days=1)
   # ...
 }
 
@@ -152,15 +154,19 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#     },
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    },
+    'default': dj_database_url.config()
 }
 
 # BD TESTING
@@ -236,7 +242,8 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
 # configuration redis 
-# CELERY_BROKER_URL = 'redis://redis:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+django_heroku.settings(locals())
