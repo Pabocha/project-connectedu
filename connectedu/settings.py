@@ -29,11 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-BASE_DOMAIN = 'localhost'
+BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp'
 
 AUTH_USER_MODEL = 'utilisateurs.Utilisateurs'
 
@@ -154,20 +154,24 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+    },
+}
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT'),
-#     },
+#     'default': dj_database_url.config()
 # }
 
-DATABASES = {
-    'default': dj_database_url.config()
-}
+if "DATABASE_URL" in os.environ:
+    DATABASES['default']=dj_database_url.config(
+        conn_max_age=600, ssl_require=True)
 
 # BD TESTING
 # DATABASES = {
