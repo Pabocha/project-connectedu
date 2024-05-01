@@ -17,6 +17,8 @@ import django_heroku
 import dj_database_url
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -166,12 +168,12 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 # if "DATABASE_URL" in os.environ:
-#     DATABASES['default']=dj_database_url.config(
-#         conn_max_age=600, ssl_require=True)
+#     database_url = os.getenv('DATABASE_URL')
+#     print(database_url)
 
 # BD TESTING
 # DATABASES = {
