@@ -166,13 +166,13 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 #         'PORT': config('DB_PORT'),
 #     },
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://u47kqkfcs3mtp5:p99deaeeb4bb1c3604c66b1d0acfdb571487704c10a4fe53ea4fd5e734a783fd1@cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d6u0skcg1katme?backend=django_tenants.postgresql_backend',
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://u47kqkfcs3mtp5:p99deaeeb4bb1c3604c66b1d0acfdb571487704c10a4fe53ea4fd5e734a783fd1@cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d6u0skcg1katme?backend=django_tenants.postgresql_backend',
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
 
 # DATABASES = {
 #     'default': dj_database_url.config(conn_max_age=600)
