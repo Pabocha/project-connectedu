@@ -1,1 +1,1 @@
-web: gunicorn connectedu.wsgi --log-file -
+web gunicorn connectedu.wsgi:application --log-file -
