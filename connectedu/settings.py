@@ -159,24 +159,19 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'NAME': 'd2qem1pgge3htq',
+        'USER': 'u24u620o3u9253',
+        'PASSWORD': 'p7b7431fb4a17db99e3e656c97e026e85a946124861a6c6c16df024b607166fd7',
+        'HOST': 'cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+        'PORT': 5432,
     },
 }
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgres://u47kqkfcs3mtp5:p99deaeeb4bb1c3604c66b1d0acfdb571487704c10a4fe53ea4fd5e734a783fd1@cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d6u0skcg1katme?backend=django_tenants.postgresql_backend',
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     )
-# }
-
+# DATABASES = {}
 # DATABASES = {
 #     'default': dj_database_url.config(conn_max_age=600)
 # }
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# print(os.getenv('DATABASE_URL'))
 
 
 # BD TESTING
