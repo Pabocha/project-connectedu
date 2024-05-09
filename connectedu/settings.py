@@ -167,18 +167,13 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 #     },
 # }
 # DATABASES = {}
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         engine='django_tenants.postgresql_backend'
-#     )
-# }
-DATABASES = {'default': dj_database_url.config(
-    default='postgres://u24u620o3u9253:p7b7431fb4a17db99e3e656c97e026e85a946124861a6c6c16df024b607166fd7@cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d2qem1pgge3htq'
-)
+DATABASES = {
+    'default': dj_database_url.config(
+        engine='django_tenants.postgresql_backend'
+    )
 }
-DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# print(os.getenv('DATABASE_URL'))
+
+
 
 
 # BD TESTING
