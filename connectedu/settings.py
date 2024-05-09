@@ -80,7 +80,6 @@ TENANT_MODEL = "comptes_ecole.Ecoles"  # app.Model
 TENANT_DOMAIN_MODEL = "comptes_ecole.Domain"  # app.Model
 
 MIDDLEWARE = [
-    # 'connectedu.middleware_schema.TenantMainMiddleware',
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -167,27 +166,18 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 #     },
 # }
 # DATABASES = {}
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ['DATABASE_URL'],
-        engine='django_tenants.postgresql_backend'
-    )
-}
-
-
-
 
 # BD TESTING
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME' : 'ConnectEdu',
-#         'USER' : 'postgres',
-#         'PASSWORD' : 'P@blo 2003',
-#         'HOST' : '127.0.0.1',
-#         'PORT' : 5432
-#     },
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME' : 'ConnectEdu',
+        'USER' : 'postgres',
+        'PASSWORD' : 'P@blo 2003',
+        'HOST' : '127.0.0.1',
+        'PORT' : 5432
+    },
+}
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -250,8 +240,6 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
 # configuration redis 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
-# CELERY_BROKER_URL = 'redis://localhost:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-# django_heroku.settings(locals())
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
