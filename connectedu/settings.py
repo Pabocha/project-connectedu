@@ -169,6 +169,7 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 # DATABASES = {}
 DATABASES = {
     'default': dj_database_url.config(
+        default=os.environ['DATABASE_URL'],
         engine='django_tenants.postgresql_backend'
     )
 }
