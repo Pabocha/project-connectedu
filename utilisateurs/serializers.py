@@ -13,6 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['name'] = user.username
         if user.ecoles and user.ecoles.schema_name:
             token['schema_name'] = user.ecoles.schema_name
+            token['id_ecole'] = user.ecoles.id
         else:
             token['schema_name'] = None
 

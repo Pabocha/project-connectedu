@@ -1,9 +1,9 @@
 import uuid
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import EcoleSerializer
+from .serializers import EcoleSerializer, EcoleInfoSerializer
 from .models import Ecoles
 from django.contrib.auth import get_user_model
 from .tasks import send_mail_welcome, create_schema_and_run_migrations
@@ -41,3 +41,6 @@ class InscriptionEcole(APIView):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+class EcoleInfoView(generics.RetrieveAPIView):
+    queryset = Ecoles.objects.all()
+    serializer_class = EcoleInfoSerializer

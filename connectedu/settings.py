@@ -156,16 +156,16 @@ WSGI_APPLICATION = 'connectedu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'd2qem1pgge3htq',
-        'USER': 'u24u620o3u9253',
-        'PASSWORD': 'p7b7431fb4a17db99e3e656c97e026e85a946124861a6c6c16df024b607166fd7',
-        'HOST': 'cf9gid2f6uallg.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
-        'PORT': 5432,
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#     },
+# }
 # DATABASES = {}
 # DATABASES = {
 #     'default': dj_database_url.config(conn_max_age=600)
@@ -175,16 +175,16 @@ DATABASES = {
 
 
 # BD TESTING
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME' : 'ConnectEdu',
-#         'USER' : 'postgres',
-#         'PASSWORD' : 'postgres',
-#         'HOST' : '127.0.0.1',
-#         'PORT' : '5432'
-#     },
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME' : 'ConnectEdu',
+        'USER' : 'postgres',
+        'PASSWORD' : 'P@blo 2003',
+        'HOST' : '127.0.0.1',
+        'PORT' : 5432
+    },
+}
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -247,8 +247,8 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
 # configuration redis 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
-# CELERY_BROKER_URL = 'redis://localhost:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-django_heroku.settings(locals())
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# django_heroku.settings(locals())

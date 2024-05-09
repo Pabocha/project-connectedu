@@ -32,7 +32,7 @@ class NiveauView(viewsets.ModelViewSet):
     serializer_class = NiveauSerializer
 
 class ParentsView(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Parents.objects.all()
     serializer_class = ParentSerializer
 
@@ -43,6 +43,7 @@ class NoteView(viewsets.ModelViewSet):
 
 class EleveUploadExcelView(APIView):
     parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
         try:
@@ -109,7 +110,7 @@ class ElevesView(viewsets.ModelViewSet):
     
     queryset = Eleves.objects.all()
     serializer_class = EleveSerializer
-    # permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
 
     def list(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)
@@ -117,15 +118,28 @@ class ElevesView(viewsets.ModelViewSet):
         if niveau:
             niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
             eleves_queryset = Eleves.objects.filter(niveau=niveau_classe)
+            serializer = self.get_serializer(eleves_queryset, many=True)
+            return Response(serializer.data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = self.get_serializer(eleves_queryset, many=True)
-        return Response(serializer.data)
-    
     def create(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)
-        return Response()
+        
+        if niveau:
+            try:
+                niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
+                # Création de l'élève avec le niveau récupéré
+                serializer = self.get_serializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save(niveau=niveau_classe)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            except Niveaux.DoesNotExist:
+                return Response({"message": "Le niveau spécifié n'existe pas."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message": "Le niveau n'est pas spécifié dans l'en-tête de la requête."}, status=status.HTTP_400_BAD_REQUEST)
 
      
 

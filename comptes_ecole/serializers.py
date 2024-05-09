@@ -20,3 +20,8 @@ class EcoleSerializer(serializers.ModelSerializer):
                   'nom_responsable', 'prenom_responsable', 'email_responsable')
         
    
+class EcoleInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ecoles
+        fields = '__all__'
