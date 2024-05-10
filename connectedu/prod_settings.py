@@ -4,7 +4,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp'
+BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp.com'
 
 DATABASES['default'] = dj_database_url.config(engine='django_tenants.postgresql_backend', conn_max_age=500)
 

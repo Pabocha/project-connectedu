@@ -20,7 +20,7 @@ def create_schema_and_domain_school(instance, created):
             Domain.objects.create(domain=domain, is_primary=primary_key, tenant_id=tenant_id)
             Site.objects.create(domain=domain, name=domain)
     else:
-        Site.objects.create(domain=domain, name=domain.tenant.nom)
+        Site.objects.create(domain=settings.BASE_DOMAIN, name=instance.nom)
 
 
 

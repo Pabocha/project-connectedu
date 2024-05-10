@@ -35,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp'
+BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp.com'
 
 AUTH_USER_MODEL = 'utilisateurs.Utilisateurs'
 
