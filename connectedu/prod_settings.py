@@ -11,4 +11,4 @@ DATABASES['default'] = dj_database_url.config(engine='django_tenants.postgresql_
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
