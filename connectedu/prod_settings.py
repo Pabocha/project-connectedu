@@ -6,6 +6,14 @@ ALLOWED_HOSTS = ['*']
 
 BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp.com'
 
+MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 DATABASES['default'] = dj_database_url.config(engine='django_tenants.postgresql_backend', conn_max_age=500)
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
