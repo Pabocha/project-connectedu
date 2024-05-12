@@ -16,7 +16,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DATABASES['default'] = dj_database_url.config(engine='django_tenants.postgresql_backend', conn_max_age=500)
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_BROKER_URL = os.environ['REDIS_URL']
+CELERY_RESULT_BACKEND = 'django-db'
 
 # django_heroku.settings(locals())
