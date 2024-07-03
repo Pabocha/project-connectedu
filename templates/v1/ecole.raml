@@ -1,0 +1,16 @@
+#%RAML 1.0
+---
+title: Connectedu ecole
+baseUri: http://connectedu.com/ecole/{version}
+version: v1
+
+/eleve/:
+  description: Cette api prend (get, post, put, path, delete)
+  get:
+    description: Get sert à obtenir les données 
+    headers: 
+        Content-Type: application/json
+        Authorization: Bearer access
+        niveau: 
+            description: niveau de la classe dont vous voulez avoir les données
+                  

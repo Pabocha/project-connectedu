@@ -35,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-BASE_DOMAIN = 'connectedut-807b56b6599b.herokuapp.com'
+BASE_DOMAIN = 'localhost'
 
 AUTH_USER_MODEL = 'utilisateurs.Utilisateurs'
 
@@ -241,5 +241,7 @@ EMAIL_PORT = EMAIL_PORT
 
 # configuration redis 
 
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

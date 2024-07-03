@@ -6,7 +6,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 import pandas as pd
 from rest_framework.views import APIView
 from django.db import transaction
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
@@ -39,6 +39,9 @@ class ParentsView(viewsets.ModelViewSet):
 class NoteView(viewsets.ModelViewSet):
     queryset = Notes.objects.all()
     serializer_class = NoteSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['eleve']
 
 
 class EleveUploadExcelView(APIView):
@@ -109,8 +112,14 @@ class EleveUploadExcelView(APIView):
 class ElevesView(viewsets.ModelViewSet):
     
     queryset = Eleves.objects.all()
-    serializer_class = EleveSerializer
-    permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return EleveCreateSerializer
+        if self.action in ['update', 'partial_update']:
+            return EleveSerializer
+        return EleveCreateSerializer  # Par défaut
 
     def list(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)
@@ -121,7 +130,7 @@ class ElevesView(viewsets.ModelViewSet):
             serializer = self.get_serializer(eleves_queryset, many=True)
             return Response(serializer.data)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Le niveau n'est pas spécifié dans l'en-tête de la requête."}, status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)
@@ -129,13 +138,27 @@ class ElevesView(viewsets.ModelViewSet):
         if niveau:
             try:
                 niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
-                # Création de l'élève avec le niveau récupéré
                 serializer = self.get_serializer(data=request.data)
+                print(serializer)
+
                 if serializer.is_valid():
-                    serializer.save(niveau=niveau_classe)
+                    # récupération info parent dans le serializer et enrgistrement du parent 
+                    nom = serializer.validated_data.pop('parent_nom')
+                    prenom = serializer.validated_data.pop('parent_prenom')
+                    telephone = serializer.validated_data.pop('parent_telephone')
+                    email = serializer.validated_data.pop('parent_email')
+                    adresse = serializer.validated_data.pop('parent_adresse')
+                    parent, created = Parents.objects.get_or_create(nom=nom, prenom=prenom, telephone=telephone,
+                                                                    email=email, adresse=adresse)
+                
+                    # donnation du matricule à l'élève
+                    matricule = f"{niveau_classe.libelle}-{nom}"
+                    serializer.save(matricule=matricule, niveau=niveau_classe, tuteur=parent)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
+                
                 else:
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                
             except Niveaux.DoesNotExist:
                 return Response({"message": "Le niveau spécifié n'existe pas."}, status=status.HTTP_400_BAD_REQUEST)
         else:

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 from comptes_ecole.models import Ecoles
 from django.dispatch import receiver
 from django_rest_passwordreset.signals import reset_password_token_created
@@ -23,10 +24,10 @@ class Utilisateurs(AbstractUser):
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
     # the below like concatinates your websites reset password url and the reset email token which will be required at a later stage
-    # email_plaintext_message = "{}?token={}".format(
-    #         instance.request.build_absolute_uri(reverse('password_reset:reset-password-confirm')),
-    #         reset_password_token.key)
-    email_plaintext_message = "Open the link to reset your password" + " " + "{}{}".format(instance.request.build_absolute_uri("http://localhost:3000/reset-password/"), reset_password_token.key)
+    email_plaintext_message = "{}?token={}".format(
+            instance.request.build_absolute_uri(reverse('password_reset:reset-password-confirm')),
+            reset_password_token.key)
+    # email_plaintext_message = "Open the link to reset your password" + " " + "{}{}".format(instance.request.build_absolute_uri("http://localhost:8000/reset-password/"), reset_password_token.key)
     
     """
         this below line is the django default sending email function, 

@@ -1,10 +1,31 @@
 
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save, post_save, post_migrate
 from django.dispatch import receiver
 from .models import Ecoles, Domain
 from django.conf import settings
 from django.contrib.sites.models import Site
 from unidecode import unidecode
+
+
+@receiver(post_migrate)
+def create_school_after_migration(sender, instance, **kwargs):
+
+    if sender.name == 'comptes_ecole':
+        if not Ecoles.objects.filter(schema_name__iexact="public").exists():
+            ecole = Ecoles.objects.create(
+                schema_name = 'public',
+                nom = 'ConnectEdu',
+                email = 'connectedu@gmail.com',
+                telephone_1 = '069493272',
+                adresse = 'Pointe Noire',
+                ville_residence = 'Siafoumou', 
+                date_creation = '2020-04-05',
+            )
+            ecole.save()
+            domain = Domain.objects.create(domain=settings.BASE_DOMAIN, tenant_id=ecole.id)
+            domain.save()
+            Site.objects.create(domain=domain, name=ecole.nom)
+
 
 
 

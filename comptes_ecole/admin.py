@@ -4,7 +4,7 @@ from .models import Ecoles, Domain
 
 class EcoleAdmin(admin.ModelAdmin):
 
-    list_display = ['nom', 'email_ecole', 'adresse', 'date_creation', 'active']
+    list_display = ['nom', 'email_ecole', 'adresse', 'date_inscription', 'active']
 
 
 

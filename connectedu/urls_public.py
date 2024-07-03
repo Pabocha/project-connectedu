@@ -15,6 +15,6 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('utilisateur/', include('utilisateurs.urls')),
     path('admin-tenant/', admin.site.urls),
-    path('inscription/', include('comptes_ecole.urls')),
+    path('ecole/', include('comptes_ecole.urls')),
     path('contact/', include('contacts.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

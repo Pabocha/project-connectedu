@@ -1,7 +1,10 @@
 from django.contrib import admin
-from .models import Eleves, Parents
-
+from .models import *
 # Register your models here.
 
 admin.site.register(Eleves)
 admin.site.register(Parents)
+admin.site.register(Professeurs)
+admin.site.register(Matieres)
+admin.site.register(Notes)
+admin.site.register(Salles)

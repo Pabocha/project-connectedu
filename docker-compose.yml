@@ -15,23 +15,37 @@ services:
   web:
     build: .
 
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+
+    environment:
+      DB_HOST: db
+      DB_NAME: ConnectEdu
+      DB_USER: postgres
+      DB_PASSWORD: P@blo 2003
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
 
     volumes:
       - .:/app
 
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+      - redis
 
   redis:
     image: redis:latest
 
   celery:
     restart: always
-    build: .
+    image: connectedu-web
     command: celery -A connectedu worker -l info
     volumes:
       - .:/app
+    depends_on:
+      - redis
+
     environment:
       DB_HOST: db
       DB_NAME: ConnectEdu
@@ -39,8 +53,5 @@ services:
       DB_PASSWORD: P@blo 2003
     # entrypoint: /app/entrypoint.sh
 
-    depends_on:
-      - db
-      - redis
 volumes:
   db_data:

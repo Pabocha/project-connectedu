@@ -19,6 +19,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
         return token
+    
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'telephone', 'adresse', 'ville_residence', 'ecoles', 'password')
+
 
 class UpdateUserSerializer(serializers.ModelSerializer):
 

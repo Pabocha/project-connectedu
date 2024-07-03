@@ -49,9 +49,3 @@ def send_mail_welcome(email, responsable, password):
         fail_silently=False
     )
 
-# @app.task
-# def execute_migrations(schema_name):
-#     # Exécuter les migrations sur le schéma spécifié
-#     with schema_context(schema_name):
-#         # Exécuter les migrations
-#         call_command('migrate', verbosity=0)
