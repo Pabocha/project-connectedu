@@ -8,14 +8,14 @@ from unidecode import unidecode
 
 
 @receiver(post_migrate)
-def create_school_after_migration(sender, instance, **kwargs):
+def create_school_after_migration(sender, **kwargs):
 
     if sender.name == 'comptes_ecole':
         if not Ecoles.objects.filter(schema_name__iexact="public").exists():
             ecole = Ecoles.objects.create(
                 schema_name = 'public',
                 nom = 'ConnectEdu',
-                email = 'connectedu@gmail.com',
+                email_ecole = 'connectedu@gmail.com',
                 telephone_1 = '069493272',
                 adresse = 'Pointe Noire',
                 ville_residence = 'Siafoumou', 
@@ -23,7 +23,6 @@ def create_school_after_migration(sender, instance, **kwargs):
             )
             ecole.save()
             domain = Domain.objects.create(domain=settings.BASE_DOMAIN, tenant_id=ecole.id)
-            domain.save()
             Site.objects.create(domain=domain, name=ecole.nom)
 
 
@@ -40,8 +39,8 @@ def create_schema_and_domain_school(instance, created):
             tenant_id = instance.id
             Domain.objects.create(domain=domain, is_primary=primary_key, tenant_id=tenant_id)
             Site.objects.create(domain=domain, name=domain)
-    else:
-        Site.objects.create(domain=settings.BASE_DOMAIN, name=instance.nom)
+    # else:
+    #     Site.objects.create(domain=settings.BASE_DOMAIN, name=instance.nom)
 
 
 

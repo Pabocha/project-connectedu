@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\project_procode\ConnectEdu\venv
+set VIRTUAL_ENV=D:\Work space\Elembo Tech\pablo\project-connectedu\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
