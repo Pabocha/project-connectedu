@@ -15,9 +15,11 @@ class ProfesseurSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class MatiereSerializer(serializers.ModelSerializer):
+    niveau = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = Matieres
-        fields = ('__all__')
+        fields = ('libelle', 'coeficient', 'niveau')
 
 
 class NiveauSerializer(serializers.ModelSerializer):

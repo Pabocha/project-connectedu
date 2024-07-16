@@ -245,3 +245,5 @@ EMAIL_PORT = EMAIL_PORT
 # CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# CELERY_BROKER_URL = 'redis-13637.c325.us-east-1-4.ec2.redns.redis-cloud.com:13637'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

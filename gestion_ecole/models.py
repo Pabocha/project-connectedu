@@ -55,7 +55,7 @@ class Professeurs(models.Model):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255)
     telephone = models.CharField(max_length=30)
-    niveau = models.ManyToManyField(Niveaux)
+    niveau = models.ManyToManyField(Niveaux, related_name = "professeurs")
 
     class Meta:
         verbose_name = ("Professeur")
@@ -67,9 +67,8 @@ class Professeurs(models.Model):
 
 class Matieres(models.Model):
     libelle = models.CharField(max_length=255)
-    coeficient = models.IntegerField()
-    niveau = models.ForeignKey(Niveaux, on_delete=models.CASCADE)
-    professeur = models.ForeignKey(Professeurs, on_delete=models.SET_NULL, null=True)
+    coeficient = models.IntegerField(blank=True)
+    niveau = models.ManyToManyField(Niveaux, related_name="matieres")
 
     class Meta:
         verbose_name = ("Matiere")
@@ -94,11 +93,12 @@ class Salles(models.Model):
 
 
 class Notes(models.Model):
-    choix_note = [('Devoir', 'Devoir'),
+    choix_note = [('Devoir_1', 'Devoir_1'),
+                  ('Devoir_2', 'Devoir_2'),
                   ('Examen', 'Examen')]
 
     matieres = models.ForeignKey(Matieres, on_delete=models.CASCADE)
-    type_note = models.CharField(max_length=100, choices=choix_note, default='Devoir')
+    type_note = models.CharField(max_length=100, choices=choix_note, default='Devoir_1')
     note = models.DecimalField(max_digits=10, decimal_places=2)
     eleve = models.ForeignKey(Eleves, on_delete=models.CASCADE)
 

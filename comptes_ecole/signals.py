@@ -8,7 +8,7 @@ from unidecode import unidecode
 
 
 @receiver(post_migrate)
-def create_school_after_migration(sender, instance, **kwargs):
+def create_school_after_migration(sender, **kwargs):
 
     if sender.name == 'comptes_ecole':
         if not Ecoles.objects.filter(schema_name__iexact="public").exists():
@@ -30,7 +30,7 @@ def create_school_after_migration(sender, instance, **kwargs):
 
 
 # Creation automatique du schema de l'école et de son domain 
-def create_schema_and_domain_school(instance, created):
+def create_schema_and_domain_school(instance, created, **kwargs):
     if instance.schema_name != 'public':
         instance.schema_name = f"{unidecode(instance.nom.lower().replace(' ', '_'))}"
         if created:
@@ -53,6 +53,6 @@ def pre_save_school(sender, instance, **kwargs):
 # pour la creation après sauvegarde dans la base de ddonnées 
 @receiver(post_save, sender=Ecoles)
 def post_save_school(sender, instance, created, **kwargs):
-    create_schema_and_domain_school(instance, created)
+    create_schema_and_domain_school(instance, created, **kwargs)
 
 

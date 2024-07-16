@@ -21,6 +21,32 @@ class MatiereView(viewsets.ModelViewSet):
     queryset = Matieres.objects.all()
     serializer_class = MatiereSerializer
 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['niveau']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            libelle = serializer.validated_data.get('libelle')
+            coeficient = serializer.validated_data.get('coeficient')
+            niveau = serializer.validated_data.get('niveau')
+
+            matiere_coef = Matieres.objects.filter(libelle__iexact=libelle, coeficient=coeficient)
+            print(matiere_coef)
+
+            if matiere_coef:
+                matiere = Matieres.objects.get(libelle__iexact=libelle, coeficient=coeficient)
+                matiere.niveau.add(niveau)
+                return Response({'message': 'le niveau à bien été ajouté'},status=status.HTTP_201_CREATED)
+            else:
+                # niveau_assoicie = Niveaux.objects.get(id=niveau)
+                # serializer.save(niveau=niveau_assoicie)
+                news_matiere = Matieres.objects.create(libelle=libelle, coeficient=coeficient)
+                news_matiere.niveau.add(niveau)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
 class SalleView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Salles.objects.all()
@@ -117,7 +143,7 @@ class ElevesView(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return EleveCreateSerializer
-        if self.action in ['update', 'partial_update']:
+        if self.action in ['update', 'partial_update', 'list', 'retreive']:
             return EleveSerializer
         return EleveCreateSerializer  # Par défaut
 
@@ -139,7 +165,6 @@ class ElevesView(viewsets.ModelViewSet):
             try:
                 niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
                 serializer = self.get_serializer(data=request.data)
-                print(serializer)
 
                 if serializer.is_valid():
                     # récupération info parent dans le serializer et enrgistrement du parent 
