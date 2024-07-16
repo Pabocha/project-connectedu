@@ -173,7 +173,7 @@ DATABASES = {
         'ENGINE': 'django_tenants.postgresql_backend',
         'NAME' : 'ConnectEdu',
         'USER' : 'postgres',
-        'PASSWORD' : 'P@blo 2003',
+        'PASSWORD' : 'postgres',
         'HOST' : '127.0.0.1',
         'PORT' : 5432
     },
