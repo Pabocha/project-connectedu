@@ -117,10 +117,10 @@ class ElevesView(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return EleveCreateSerializer
-        if self.action in ['update', 'partial_update']:
+        if self.action in ['update', 'partial_update', 'list', 'retrieve']:
             return EleveSerializer
         return EleveCreateSerializer  # Par défaut
-
+        
     def list(self, request, *args, **kwargs):
         niveau = request.headers.get('niveau', None)
 

@@ -32,10 +32,26 @@ class ParentSerializer(serializers.ModelSerializer):
         model = Parents
         fields = '__all__'
 
+class NiveauPublicSerializer(serializers.Serializer):
+    libelle = serializers.CharField(read_only = True)
+    numero = serializers.IntegerField(read_only = True)
+
+class ParentPublicSerializer(serializers.Serializer):
+    nom = serializers.CharField(read_only = True)
+    prenom = serializers.CharField(read_only = True)
+    telephone = serializers.CharField(read_only = True)
+    email = serializers.EmailField(read_only = True)
+    adresse = serializers.CharField(read_only = True)
+
 class EleveSerializer(serializers.ModelSerializer):
+    parent = ParentPublicSerializer(source = "tuteur", read_only = True)
+    niveaux = NiveauPublicSerializer(source = "niveau", read_only = True)
     class Meta:
         model = Eleves
-        fields = '__all__'
+        fields = ('id', 'matricule', 'nom', 'prenom', 'date_naissance', 'lieu_naissance',
+                  'adresse', 'telephone', 'niveaux', 'parent')
+        
+
 
 class EleveCreateSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="eleve-detail",
@@ -60,6 +76,7 @@ class EleveCreateSerializer(serializers.ModelSerializer):
         # Ajoutez d'autres champs à mettre à jour si nécessaire
         instance.save()
         return instance
+
 
 class NoteSerializer(serializers.ModelSerializer):
 

@@ -31,7 +31,7 @@ class Parents(models.Model):
     def __str__(self):
         return self.nom
     
-
+   
 class Eleves(models.Model):
     matricule = models.CharField(max_length=50, unique=True)
     nom = models.CharField(max_length=255)
