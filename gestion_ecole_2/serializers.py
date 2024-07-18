@@ -17,7 +17,7 @@ class AnnonceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Annonces
-        fields = ('titre', 'type_annonce', 'message', 'autre_annonce')
+        fields = ('titre', 'type_annonce', 'message', 'autre_annonce', 'niveau')
 
 class RelevePresenceSerializer(serializers.ModelSerializer):
 

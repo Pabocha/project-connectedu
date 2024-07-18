@@ -43,9 +43,10 @@ class Annonces(models.Model):
     ]
 
     titre = models.CharField(max_length=255)
-    type_annonce = models.CharField(max_length=255, choices=choix_annonce, default='Paiement')
+    type_annonce = models.CharField(max_length=255, choices=choix_annonce, default='Paiement', null=True, blank=True)
     message = models.TextField()
     date_annonce = models.DateTimeField(auto_now_add=True)
+    niveau = models.ManyToManyField(Niveaux, null=True)
     autre_annonce = models.CharField(max_length=255, blank=True)
 
     class Meta:
