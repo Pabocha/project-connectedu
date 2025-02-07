@@ -1,4 +1,5 @@
 import uuid
+from django.shortcuts import render, HttpResponse
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
@@ -44,3 +45,8 @@ class InscriptionEcole(APIView):
 class EcoleInfoView(generics.RetrieveAPIView):
     queryset = Ecoles.objects.all()
     serializer_class = EcoleInfoSerializer
+
+def ecole_doc(request):
+    return render(request, 'v1/ecole.html')
+
+

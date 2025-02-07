@@ -1,0 +1,90 @@
+#%RAML 1.0
+---
+title: Connectedu api
+baseUri: http://connectedu.com/ecole/{version}
+version: v1
+
+/eleve/:
+  description: Cette api prend (get, post, put, path, delete)
+  get:
+    description: Get sert à obtenir les données des élèves d'un niveau
+    headers: 
+        Content-Type: application/json
+        Authorization: Bearer access
+        niveau: 
+            description: niveau dont vous voulez avoir les données des élèves
+    responses: 
+          200:
+            body: 
+              application/json:
+                example: !include eleve.json 
+          400:
+            body: 
+              application/json:
+                example: |
+                  {
+                    "message": "Le niveau n'est pas spécifié dans l'en-tête de la requête".
+                  } 
+
+  post:
+    description: Créer un nouvel élève
+    headers: 
+      Content-Type: application/json
+      Authorization: Bearer access
+    body: 
+      application/json:
+        properties:
+          matricule: 
+            description: matricule de l'élève qui sera générer automatiquement
+            type: string
+            required: true
+            unique: true
+          nom: 
+            description: nom de l'élève
+            type: string
+            required: true
+          prenom: 
+            type: string
+            required: true
+          date_naissance: 
+            type: date
+            required: true
+          lieu_naissance:
+            type: string
+            required: true
+          adresse:
+            type: string
+            required: true
+          telephone:
+            type: number
+            required: true
+          niveau:
+            description: ce champ est un foreignKey relié avec la table niveau 
+            type: integer
+            required: true
+          tuteur:
+            description: ce champ est un foreignKey relié avec la table parent
+            type: integer
+            required: true
+        example: |
+          {
+            "id": 41,
+            "matricule": "DGNA-255",
+            "nom": "pablo",
+            "prenom": "jhon x",
+            "date_naissance": "2003-04-04",
+            "lieu_naissance": "pointe noire",
+            "adresse": "makayabou",
+            "telephone": "+1 253 35 77",
+            "niveau": 3,
+            "tuteur": 19
+          }
+    responses:           
+      201:        
+        body: 
+          application/json:
+            example: |
+              {
+                "message": "L'élève a été créer avec succes ".
+              } 
+

@@ -1,0 +1,41 @@
+{
+    "count": 3,
+    "results": [
+        {
+            "id": 38,
+            "matricule": "MA-098",
+            "nom": "Danie",
+            "prenom": "David",
+            "date_naissance": "2020-02-11",
+            "lieu_naissance": "Dakar",
+            "adresse": "Grand-Yoff",
+            "telephone": "772040160",
+            "niveau": 3,
+            "tuteur": 22
+        },
+        {
+            "id": 46,
+            "matricule": "CP2-PANGOU",
+            "nom": "PANGOU",
+            "prenom": "Fernand",
+            "date_naissance": "2003-04-15",
+            "lieu_naissance": "Pointe Noire",
+            "adresse": "Mvoumvou",
+            "telephone": "055423041",
+            "niveau": 3,
+            "tuteur": 24
+        },
+        {
+            "id": 41,
+            "matricule": "DGNA-255",
+            "nom": "pablo",
+            "prenom": "jhon x",
+            "date_naissance": "2003-04-04",
+            "lieu_naissance": "pointe noire",
+            "adresse": "makayabou",
+            "telephone": "+1 253 35 77",
+            "niveau": 3,
+            "tuteur": 19
+        }
+    ]
+}

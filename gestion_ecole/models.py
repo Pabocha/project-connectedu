@@ -93,9 +93,9 @@ class Salles(models.Model):
 
 
 class Notes(models.Model):
-    choix_note = [('Devoir_1', 'Devoir_1'),
-                  ('Devoir_2', 'Devoir_2'),
-                  ('Examen', 'Examen')]
+    choix_note = [('devoir_1', 'Devoir_1'),
+                  ('devoir_2', 'Devoir_2'),
+                  ('examen', 'Examen')]
 
     matieres = models.ForeignKey(Matieres, on_delete=models.CASCADE)
     type_note = models.CharField(max_length=100, choices=choix_note, default='Devoir_1')

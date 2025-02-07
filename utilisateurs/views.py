@@ -28,7 +28,7 @@ class AssignPermissionsView(views.APIView):
         if isinstance(permission_ids, int):
             permission_ids = [permission_ids]
 
-        if not permission_ids:  # Ajouter l'utilisateur au groupe avec toutes les permissions
+        if not permission_ids:  # Ajouter l'utilisateur au groupe avec toutes les permissions de ce groupe
             user.groups.add(group)
         else:  # Ajouter des permissions spécifiques à l'utilisateur sans le mettre dans le groupe
             permissions = Permission.objects.filter(id__in=permission_ids)
@@ -87,19 +87,25 @@ class CreateUserView(generics.CreateAPIView):
     
 class PermissionView(views.APIView):
 
-    def get(self, request,  format=None):
-        try:
-            group = Group.objects.get(name="ACCESS USER")
-            # group = Group.objects.get(id=group_id)
-            permissions = group.permissions.all()
-            permissions_data = []
-            for permission in permissions:
-                permissions_data.append({
-                    'id': permission.id,
-                    'name': permission.name,
-                    'codename': permission.codename,
-                })
-            return Response(permissions_data, status=status.HTTP_200_OK)
-        except Group.DoesNotExist:
-            return Response({"message": "Le groupe spécifié n'existe pas"}, status=status.HTTP_404_NOT_FOUND)
-
+    def get(self, request, format=None):
+    #     excluded_permissions = {
+    #     "add_logentry", "change_logentry", "delete_logentry", "view_logentry",
+    #     "add_group", "change_group", "delete_group", "view_group",
+    #     "add_tokenproxy", "change_tokenproxy", "delete_tokenproxy", "view_tokenproxy",
+    #     "add_token", "change_token", "delete_token", "view_token",
+    #     "add_domain", "change_domain", "delete_domain", "view_domain",
+    #     "add_ecoles", "change_ecoles", "delete_ecoles", "view_ecoles"
+    # }
+        
+        allowed_apps = ["gestion_ecole", "gestion_ecole_2"]
+        # permissions = Permission.objects.exclude(codename__in=excluded_permissions)  # Récupérer toutes les permissions
+        permissions = Permission.objects.filter(content_type__app_label__in=allowed_apps)
+        permissions_data = [
+            {
+                'id': permission.id,
+                'name': permission.name,
+                'codename': permission.codename
+            }
+            for permission in permissions
+        ]
+        return Response(permissions_data, status=status.HTTP_200_OK)

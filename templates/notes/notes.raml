@@ -1,0 +1,75 @@
+#%RAML 1.0
+---
+title: Connectedu notes
+baseUri: http://localhost:8080/ecole/note
+version: v1
+
+/note/:
+  description: Cette api prend (get, post, path, delete)
+  get:
+    description: ce get sert à obtenir toutes les notes d'un élève particulier 
+    headers: 
+        Content-Type: application/json
+        Authorization: Bearer access
+    queryParameters: 
+        eleve: 
+            type: integer
+    responses: 
+          200:
+            body: 
+              application/json:
+                example: !include note.json 
+          400:
+            body: 
+              application/json:
+                example: |
+                  {
+                    "message": "Le niveau n'est pas spécifié dans l'en-tête de la requête".
+                  } 
+  post:
+    description: Ajouter une note à un élève
+    headers: 
+        Content-Type: application/json
+        Authorization: Bearer access
+    body: 
+      application/json:
+        properties: 
+            matieres: 
+              description: l'id de la matière dont la note sera associé 
+              type: integer
+              required: true
+            type_note: 
+              description: il y'a trois type de note (devoir_1, devoir_2 et examen) donc bien choisir le type de note 
+              type: string
+              choices: [devoir_1, devoir_2, examen]
+              required: true
+            note:
+              description: la note de l'élève
+              type: number
+              required: true
+            eleve:
+              description: l'id de l'élève dont la note sera attribué 
+              type: integer
+              required: true
+            example: |
+              {
+                "id": 10,
+                "type_note": "examen",
+                "note": "10.00",
+                "matieres": 10,
+                "eleve": 41
+              }
+    responses:           
+      201:        
+        body: 
+          application/json:
+            example: |
+              {
+                "id": 10,
+                "type_note": "examen",
+                "note": "10.00",
+                "matieres": 10,
+                "eleve": 41
+              } 
+                     
+                      

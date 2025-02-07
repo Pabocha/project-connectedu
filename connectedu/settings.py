@@ -90,6 +90,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://*",
@@ -136,7 +140,7 @@ PUBLIC_SCHEMA_URLCONF = 'connectedu.urls_public'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -173,7 +177,7 @@ DATABASES = {
         'ENGINE': 'django_tenants.postgresql_backend',
         'NAME' : 'ConnectEdu',
         'USER' : 'postgres',
-        'PASSWORD' : 'postgres',
+        'PASSWORD' : 'P@blo 2003',
         'HOST' : '127.0.0.1',
         'PORT' : 5432
     },

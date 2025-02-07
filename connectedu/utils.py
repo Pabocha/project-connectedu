@@ -11,7 +11,7 @@ def check_tenant_membership(view_func):
         tenant_model = get_tenant_model()
         domain_url = request.get_host().split(':')[0]
         if domain_url.startswith('www.'):
-            domain_url[4:]
+            domain_url = domain_url[4:]
 
         try:
             tenant = tenant_model.objects.get(domains__domain=domain_url)

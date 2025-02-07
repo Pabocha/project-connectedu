@@ -1,0 +1,242 @@
+[
+    {
+        "id": 69,
+        "name": "Can add Eleve",
+        "codename": "add_eleves"
+    },
+    {
+        "id": 70,
+        "name": "Can change Eleve",
+        "codename": "change_eleves"
+    },
+    {
+        "id": 71,
+        "name": "Can delete Eleve",
+        "codename": "delete_eleves"
+    },
+    {
+        "id": 72,
+        "name": "Can view Eleve",
+        "codename": "view_eleves"
+    },
+    {
+        "id": 65,
+        "name": "Can add Matiere",
+        "codename": "add_matieres"
+    },
+    {
+        "id": 66,
+        "name": "Can change Matiere",
+        "codename": "change_matieres"
+    },
+    {
+        "id": 67,
+        "name": "Can delete Matiere",
+        "codename": "delete_matieres"
+    },
+    {
+        "id": 68,
+        "name": "Can view Matiere",
+        "codename": "view_matieres"
+    },
+    {
+        "id": 53,
+        "name": "Can add Niveau",
+        "codename": "add_niveaux"
+    },
+    {
+        "id": 54,
+        "name": "Can change Niveau",
+        "codename": "change_niveaux"
+    },
+    {
+        "id": 55,
+        "name": "Can delete Niveau",
+        "codename": "delete_niveaux"
+    },
+    {
+        "id": 56,
+        "name": "Can view Niveau",
+        "codename": "view_niveaux"
+    },
+    {
+        "id": 73,
+        "name": "Can add Note",
+        "codename": "add_notes"
+    },
+    {
+        "id": 74,
+        "name": "Can change Note",
+        "codename": "change_notes"
+    },
+    {
+        "id": 75,
+        "name": "Can delete Note",
+        "codename": "delete_notes"
+    },
+    {
+        "id": 76,
+        "name": "Can view Note",
+        "codename": "view_notes"
+    },
+    {
+        "id": 57,
+        "name": "Can add Parent",
+        "codename": "add_parents"
+    },
+    {
+        "id": 58,
+        "name": "Can change Parent",
+        "codename": "change_parents"
+    },
+    {
+        "id": 59,
+        "name": "Can delete Parent",
+        "codename": "delete_parents"
+    },
+    {
+        "id": 60,
+        "name": "Can view Parent",
+        "codename": "view_parents"
+    },
+    {
+        "id": 77,
+        "name": "Can add Professeur",
+        "codename": "add_professeurs"
+    },
+    {
+        "id": 78,
+        "name": "Can change Professeur",
+        "codename": "change_professeurs"
+    },
+    {
+        "id": 79,
+        "name": "Can delete Professeur",
+        "codename": "delete_professeurs"
+    },
+    {
+        "id": 80,
+        "name": "Can view Professeur",
+        "codename": "view_professeurs"
+    },
+    {
+        "id": 61,
+        "name": "Can add Salle",
+        "codename": "add_salles"
+    },
+    {
+        "id": 62,
+        "name": "Can change Salle",
+        "codename": "change_salles"
+    },
+    {
+        "id": 63,
+        "name": "Can delete Salle",
+        "codename": "delete_salles"
+    },
+    {
+        "id": 64,
+        "name": "Can view Salle",
+        "codename": "view_salles"
+    },
+    {
+        "id": 81,
+        "name": "Can add Annonce",
+        "codename": "add_annonces"
+    },
+    {
+        "id": 82,
+        "name": "Can change Annonce",
+        "codename": "change_annonces"
+    },
+    {
+        "id": 83,
+        "name": "Can delete Annonce",
+        "codename": "delete_annonces"
+    },
+    {
+        "id": 84,
+        "name": "Can view Annonce",
+        "codename": "view_annonces"
+    },
+    {
+        "id": 85,
+        "name": "Can add Appreciation",
+        "codename": "add_appreciations"
+    },
+    {
+        "id": 86,
+        "name": "Can change Appreciation",
+        "codename": "change_appreciations"
+    },
+    {
+        "id": 87,
+        "name": "Can delete Appreciation",
+        "codename": "delete_appreciations"
+    },
+    {
+        "id": 88,
+        "name": "Can view Appreciation",
+        "codename": "view_appreciations"
+    },
+    {
+        "id": 89,
+        "name": "Can add Comptable",
+        "codename": "add_comptables"
+    },
+    {
+        "id": 90,
+        "name": "Can change Comptable",
+        "codename": "change_comptables"
+    },
+    {
+        "id": 91,
+        "name": "Can delete Comptable",
+        "codename": "delete_comptables"
+    },
+    {
+        "id": 92,
+        "name": "Can view Comptable",
+        "codename": "view_comptables"
+    },
+    {
+        "id": 93,
+        "name": "Can add Emploi du temps",
+        "codename": "add_emploidutemps"
+    },
+    {
+        "id": 94,
+        "name": "Can change Emploi du temps",
+        "codename": "change_emploidutemps"
+    },
+    {
+        "id": 95,
+        "name": "Can delete Emploi du temps",
+        "codename": "delete_emploidutemps"
+    },
+    {
+        "id": 96,
+        "name": "Can view Emploi du temps",
+        "codename": "view_emploidutemps"
+    },
+    {
+        "id": 97,
+        "name": "Can add releve presences",
+        "codename": "add_relevepresences"
+    },
+    {
+        "id": 98,
+        "name": "Can change releve presences",
+        "codename": "change_relevepresences"
+    },
+    {
+        "id": 99,
+        "name": "Can delete releve presences",
+        "codename": "delete_relevepresences"
+    },
+    {
+        "id": 100,
+        "name": "Can view releve presences",
+        "codename": "view_relevepresences"
+    }
+]

@@ -1,0 +1,36 @@
+#%RAML 1.0
+---
+
+title: Connectedu api permission
+baseUri: http://localhost:8000/utilisateurs/
+version: v1
+
+/permission-user/:
+  description: cette api permet d'accorder les permissions aux membres des ecoles.
+  get: 
+    description: premierement il est necessaire de recuperer d'abord toutes les permissions pouvant être assigne a un membre (vous allez utiliser l'id pour assigné les permissions)
+    headers: 
+        Content-Type: application/json
+        Authorization: Bearer access
+    responses:
+        200:
+            body: 
+              application/json:
+                example: !include permission.json 
+
+/assign-permissions/:
+    description: apres avoir recuperer toutes les permissions vous pouvez choisir les permissions a ajouter aux utilisateurs
+    post:
+        description: assurer vous d'avoir bien assinge les id des permissions dont vous avez récupérer auparavant à chaque 
+        headers:
+            content-type: application/json
+            Authorization: Bearer access
+        body: 
+            application/json:
+                properties:
+                    user_id: 
+                        description: id de l'utilisateur dont les permissions seront octroyé 
+                        type: integer
+                        required: true
+                    permission_ids: 
+                    

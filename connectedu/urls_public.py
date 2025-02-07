@@ -17,4 +17,5 @@ urlpatterns = [
     path('admin-tenant/', admin.site.urls),
     path('ecole/', include('comptes_ecole.urls')),
     path('contact/', include('contacts.urls')),
+    path('documentation/', include('documentation.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

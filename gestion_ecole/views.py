@@ -7,9 +7,13 @@ import pandas as pd
 from rest_framework.views import APIView
 from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
+from django.http import JsonResponse
 
 # Create your views here.
 
+def get_total_eleves(request):
+    total_eleves = Eleves.objects.count()
+    return JsonResponse({'count': total_eleves})
 
 class ProfesseursView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -158,7 +162,11 @@ class ElevesView(viewsets.ModelViewSet):
             niveau_classe = Niveaux.objects.get(libelle__iexact=niveau)
             eleves_queryset = Eleves.objects.filter(niveau=niveau_classe)
             serializer = self.get_serializer(eleves_queryset, many=True)
-            return Response(serializer.data)
+            response_data = {
+            'count': eleves_queryset.count(),
+            'results': serializer.data
+             }
+            return Response(response_data, status=status.HTTP_200_OK  )
         else:
             return Response({"message": "Le niveau n'est pas spécifié dans l'en-tête de la requête."}, status=status.HTTP_400_BAD_REQUEST)
 

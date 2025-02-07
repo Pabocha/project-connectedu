@@ -1,0 +1,37 @@
+[
+    {
+        "id": 5,
+        "type_note": "Examen",
+        "note": "20.00",
+        "matieres": 1,
+        "eleve": 46
+    },
+    {
+        "id": 6,
+        "type_note": "Devoir",
+        "note": "15.00",
+        "matieres": 1,
+        "eleve": 46
+    },
+    {
+        "id": 7,
+        "type_note": "Devoir",
+        "note": "13.00",
+        "matieres": 4,
+        "eleve": 46
+    },
+    {
+        "id": 8,
+        "type_note": "Devoir",
+        "note": "18.00",
+        "matieres": 5,
+        "eleve": 46
+    },
+    {
+        "id": 9,
+        "type_note": "Examen",
+        "note": "18.00",
+        "matieres": 5,
+        "eleve": 46
+    }
+]
