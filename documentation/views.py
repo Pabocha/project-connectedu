@@ -8,3 +8,6 @@ def note_doc(request):
 
 def api_doc(request):
     return render(request, 'v1/api.html')
+
+def utilisateur_doc(request):
+    return render(request, 'v1/utilisateur.html')

@@ -1,0 +1,71 @@
+#%RAML 1.0
+---
+
+title: Connectedu api permission
+baseUri: http://localhost:8000/utilisateur/
+version: v1
+
+/create-user/:
+    description: Cette api permet a un admin d'une école de creer un utilisateur de son ecole 
+    post:
+        description: Seul un membre qui se trouve dans le groupe Admin School peut creer un utilisateur, donc avant tout il faut d'abord creer le groupe Admin School
+        headers:
+            content-type: application/json
+            Authorization: Bearer access
+        body: 
+            application/json:
+                properties:
+                    username: 
+                        description: l'admin doit creer le nom d'utilisateur du membre 
+                        type: string
+                        required: true
+                    first_name: 
+                        description: Le prenom du membre
+                        type: string
+                        required: true
+                    last_name: 
+                        description: Le nom du membre
+                        type: string
+                        required: true
+                    email: 
+                        description: L'email du membre
+                        type: string
+                        required: true
+                    telephone: 
+                        description: Le numero de telephone du membre
+                        type: string
+                        required: true
+                    adresse: 
+                        description: L'adresse du membre
+                        type: string
+                        required: true
+                    ville_residence: 
+                        description: L'endroit ou reside le membre
+                        type: string
+                        required: true
+                    password: 
+                        description: Le mot de passe du membre dont il va se connecte
+                        type: string
+                        required: true
+        responses:           
+            201:        
+                body: 
+                    application/json:
+                        example: |
+                            {
+                                "username": "Pablo242",
+                                "first_name": "Pablo",
+                                "last_name": "GENIUS",
+                                "email": "pablogenius@gmail.com",
+                                "telephone": "781293904",
+                                "adresse": "Liberté 6"
+                                "ville_residence": "Dakar",
+                                "password": "Haroonce 'ç-é"
+                            }           
+            403:
+                body: 
+                    application/json:
+                        example: |
+                            {
+                                "message": "L'utilisateur n'a pas le droit de créer un autre utilisateur (verifie si l'utilisateur est dans le groupe Admin School)".
+                            } 

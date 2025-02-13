@@ -33,4 +33,33 @@ version: v1
                         type: integer
                         required: true
                     permission_ids: 
-                    
+                        description: Liste d'IDs de permissions ou un seul ID
+                        type: integer | integer[]
+                        required: true
+                    group_name: 
+                        description: Pour s'il faut ajouter un utilisateur dans un groupe
+                        type: string
+                        required: false
+                    example: |
+                        {
+                            "user_id": 10,
+                            "group_name": "Professeur",
+                            "permission_ids": 141 | [12, 30]
+                        }
+        responses:           
+            201:        
+                body: 
+                  application/json:
+                    example: |
+                      {
+                        "user_id": 10,
+                        "group_name": "Professeur",
+                        "permission_ids": 141 | [12, 30]
+                      } 
+            400:        
+                body: 
+                  application/json:
+                    example: |
+                      {
+                        "message": "Erreur pouvant être causé par le group_name, user_id ou permission_ids vous l'avez ajouté n'existe pas".
+                      } 

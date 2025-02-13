@@ -1,11 +1,12 @@
 import uuid
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import EcoleSerializer, EcoleInfoSerializer
 from .models import Ecoles
+from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from .tasks import send_mail_welcome, create_schema_and_run_migrations
 User = get_user_model()
@@ -36,6 +37,11 @@ class InscriptionEcole(APIView):
                                         ecoles=instance_ecole)
         responsable.set_password(password)
         responsable.save()
+
+        group = Group.objects.get(name='Admin School')
+        responsable.groups.add(group)
+
+
 
         create_schema_and_run_migrations.delay(instance_ecole.schema_name)
         send_mail_welcome.delay(email, responsable.username, password)

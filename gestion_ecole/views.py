@@ -147,11 +147,7 @@ class ElevesView(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return EleveCreateSerializer
-<<<<<<< HEAD
         if self.action in ['update', 'partial_update', 'list', 'retrieve']:
-=======
-        if self.action in ['update', 'partial_update', 'list', 'retreive']:
->>>>>>> 8b225fb43be9070511e0619a7f04b24546b9a3ff
             return EleveSerializer
         return EleveCreateSerializer  # Par défaut
         

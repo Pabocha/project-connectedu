@@ -5,7 +5,7 @@ from .models import Ecoles, Domain
 from django.conf import settings
 from django.contrib.sites.models import Site
 from unidecode import unidecode
-
+from django.contrib.auth.models import Group, Permission
 
 @receiver(post_migrate)
 def create_school_after_migration(sender, **kwargs):
@@ -24,6 +24,10 @@ def create_school_after_migration(sender, **kwargs):
             ecole.save()
             domain = Domain.objects.create(domain=settings.BASE_DOMAIN, tenant_id=ecole.id)
             Site.objects.create(domain=domain, name=ecole.nom)
+            group = Group.objects.create(name="Admin School")
+            permissions = Permission.objects.filter(codename__in=["add_user", "change_user", "delete_user", "view_user"])
+            group.permissions.set(permissions) 
+
 
 
 
